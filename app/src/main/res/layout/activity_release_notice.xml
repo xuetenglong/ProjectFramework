@@ -29,6 +29,7 @@
     android:textSize="18sp"
     android:textColor="@color/c111A38"
     android:textColorHint="@color/c999FA7"
+    android:maxLines="10"
     android:layout_height="@dimen/text_height" />
 
   <FrameLayout style="@style/lines_cF8F8F8_16" />
