@@ -1,7 +1,5 @@
 package duanjie.projectframework.home;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -21,13 +19,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import duanjie.projectframework.R;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
-import org.greenrobot.eventbus.EventBus;
+
+import duanjie.projectframework.R;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by xuetenglong on 2017/5/15.
@@ -57,7 +60,7 @@ public class RecordingDialogFragment extends DialogFragment implements View.OnCl
     }
 
     Handler startTimeHandler = new Handler() {
-        public void handleMessage(Message msg) {
+        public void handleMessage(android.os.Message msg) {
             if (status == 1) {
                 //录音状态
                 recordTimer = SystemClock.elapsedRealtime();

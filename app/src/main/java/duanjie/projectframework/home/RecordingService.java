@@ -6,9 +6,11 @@ import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
-import duanjie.projectframework.R;
+
 import java.io.File;
 import java.io.IOException;
+
+import duanjie.projectframework.R;
 
 /**
  * 录音的 Service
