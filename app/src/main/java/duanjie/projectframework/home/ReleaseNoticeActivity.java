@@ -17,11 +17,17 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
 import com.suke.widget.SwitchButton;
-import duanjie.projectframework.R;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import duanjie.projectframework.R;
 
 /**
  * 发布通知
@@ -73,6 +79,7 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
 
 
         findViewById(R.id.ly_record).setOnClickListener(this);
+        findViewById(R.id.pictureLayout).setOnClickListener(this);
         pathView = findViewById(R.id.pathView);
         voiceView = findViewById(R.id.voiceView);
         voiceView.setOnClickListener(this);
@@ -133,6 +140,22 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
                     }
 
                 }
+                break;
+            case R.id.pictureLayout:
+                // 进入相册 以下是例子：不需要的api可以不写
+                PictureSelector.create(this)
+                        .openGallery(PictureMimeType.ofImage())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                        .theme(R.style.picture_QQ_style)// 主题样式设置 具体参考 values/styles   用法：R.style.picture.white.style
+                        .maxSelectNum(9)// 最大图片选择数量
+                        .minSelectNum(1)// 最小选择数量
+                        .imageSpanCount(4)// 每行显示个数
+                        .selectionMode(PictureConfig.MULTIPLE)// 多选 or 单选
+                        .previewImage(true)// 是否可预览图片
+                        .isCamera(false)// 是否显示拍照按钮
+                        .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
+                        .synOrAsy(true)//同步true或异步false 压缩 默认同步
+                        .minimumCompressSize(100)// 小于100kb的图片不压缩
+                        .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
                 break;
         }
     }

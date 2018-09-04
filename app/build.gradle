@@ -88,6 +88,7 @@ dependencies {
 
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile project(':picture_library')
 
 
 
