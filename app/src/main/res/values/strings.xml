@@ -1,11 +1,16 @@
 <resources>
   <string name="app_name">ProjectFramework</string>
   <string name="notice_title">通知标题(必填)...</string>
+  <string name="notice_title_task">任务标题(必填)...</string>
   <string name="notice_content">可填写通知内容，最多可输入200字...</string>
+  <string name="notice_task">可填写任务内容，最多可输入200字...</string>
   <string name="text_picture">图片</string>
   <string name="text_record">录音</string>
   <string name="text_release">发布对象</string>
   <string name="text_class">全部班级</string>
+  <string name="text_select_class">选择班级</string>
+  <string name="text_deadline">截止时间</string>
+  <string name="text_selection_time">选择时间</string>
   <string name="default_file_name">MyRecording</string>
 
 </resources>

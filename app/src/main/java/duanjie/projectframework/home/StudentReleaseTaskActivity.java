@@ -26,7 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * Created by Administrator on 2018/9/4.
  */
 
-public class ReleaseTaskActivity extends AppCompatActivity implements SwitchButton.OnCheckedChangeListener, View.OnClickListener{
+public class StudentReleaseTaskActivity extends AppCompatActivity implements SwitchButton.OnCheckedChangeListener, View.OnClickListener{
     SwitchButton mSwitchButton1,mSwitchButton2;
     private VoiceView voiceView;
     private TextView pathView;
@@ -84,7 +84,7 @@ public class ReleaseTaskActivity extends AppCompatActivity implements SwitchButt
             @Override
             public void afterTextChanged(Editable s) {
                 if(maxNum-s.length()==0 || maxNum-s.length()<0){
-                    Toast.makeText(ReleaseTaskActivity.this,"不能超过200个文字",Toast.LENGTH_LONG).show();
+                    Toast.makeText(StudentReleaseTaskActivity.this,"不能超过200个文字",Toast.LENGTH_LONG).show();
                     return;
                 }else{
                     leftNum.setText((maxNum-s.length())+"");
