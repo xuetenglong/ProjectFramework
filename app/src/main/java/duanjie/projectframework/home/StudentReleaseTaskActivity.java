@@ -26,8 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * Created by Administrator on 2018/9/4.
  */
 
-public class StudentReleaseTaskActivity extends AppCompatActivity implements SwitchButton.OnCheckedChangeListener, View.OnClickListener{
-    SwitchButton mSwitchButton1,mSwitchButton2;
+public class StudentReleaseTaskActivity extends AppCompatActivity implements View.OnClickListener{
     private VoiceView voiceView;
     private TextView pathView;
     private boolean isPlay;
@@ -37,7 +36,7 @@ public class StudentReleaseTaskActivity extends AppCompatActivity implements Swi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_release_task);
+        setContentView(R.layout.activity_student_release_task);
         EventBus.getDefault().register(this);
 
         TextView mLeftView = (TextView) findViewById(R.id.title_default_left);
@@ -46,66 +45,19 @@ public class StudentReleaseTaskActivity extends AppCompatActivity implements Swi
         mRightView.setTextColor(getResources().getColor(R.color.c3677DA));
 
 
-        mSwitchButton1=(SwitchButton)findViewById(R.id.switchButton1);
-        mSwitchButton2=(SwitchButton)findViewById(R.id.switchButton1);
-
-        /**
-         * 通知标题
-         */
-        TextView mNoticeTitle = (TextView) findViewById(R.id.ed_notice_title);
-        SpannableString sNoticeTitle = new SpannableString("任务标题(必填)...");//定义hint的值
-        AbsoluteSizeSpan aNoticeTitle = new AbsoluteSizeSpan(15,true);//设置字体大小 true表示单位是sp
-        sNoticeTitle.setSpan(aNoticeTitle, 0, sNoticeTitle.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        mNoticeTitle.setHint(new SpannedString(sNoticeTitle));
-
         mLeftView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         mLeftView.setText("取消");
         mMiddleView.setText("发布任务");
-        mRightView.setText("发布");
-
-
+        mRightView.setText("提交");
 
         findViewById(R.id.ly_record).setOnClickListener(this);
         pathView = findViewById(R.id.pathView);
         voiceView = findViewById(R.id.voiceView);
         voiceView.setOnClickListener(this);
-
-
-        final int maxNum = 200;
-        final TextView leftNum = (TextView) findViewById(R.id.leftNum);
-        EditText ed = (EditText) findViewById(R.id.ed_notice_content);
-        ed.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(maxNum-s.length()==0 || maxNum-s.length()<0){
-                    Toast.makeText(StudentReleaseTaskActivity.this,"不能超过200个文字",Toast.LENGTH_LONG).show();
-                    return;
-                }else{
-                    leftNum.setText((maxNum-s.length())+"");
-                }
-
-            }
-        });
-
     }
 
 
-    @Override
-    public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-        if (view.isChecked()){
-            mSwitchButton1.setChecked(true);
-            mSwitchButton2.setChecked(true);
-        }else{
-            mSwitchButton1.setChecked(false);
-            mSwitchButton2.setChecked(false);
-        }
-    }
+
 
     @Override
     public void onClick(View v) {

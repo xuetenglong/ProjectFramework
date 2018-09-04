@@ -6,6 +6,8 @@
   <string name="notice_task">可填写任务内容，最多可输入200字...</string>
   <string name="text_picture">图片</string>
   <string name="text_record">录音</string>
+  <string name="text_video">视频</string>
+
   <string name="text_release">发布对象</string>
   <string name="text_class">全部班级</string>
   <string name="text_select_class">选择班级</string>
@@ -13,4 +15,7 @@
   <string name="text_selection_time">选择时间</string>
   <string name="default_file_name">MyRecording</string>
 
+
+
+  <string name="text_do_task">开始书写或添加多媒体...</string>
 </resources>

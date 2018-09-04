@@ -27,7 +27,7 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 
 public class ReleaseTaskActivity extends AppCompatActivity implements SwitchButton.OnCheckedChangeListener, View.OnClickListener{
-    SwitchButton mSwitchButton1,mSwitchButton2;
+    SwitchButton mSwitchButton1;
     private VoiceView voiceView;
     private TextView pathView;
     private boolean isPlay;
@@ -47,7 +47,7 @@ public class ReleaseTaskActivity extends AppCompatActivity implements SwitchButt
 
 
         mSwitchButton1=(SwitchButton)findViewById(R.id.switchButton1);
-        mSwitchButton2=(SwitchButton)findViewById(R.id.switchButton1);
+
 
         /**
          * 通知标题
@@ -100,10 +100,8 @@ public class ReleaseTaskActivity extends AppCompatActivity implements SwitchButt
     public void onCheckedChanged(SwitchButton view, boolean isChecked) {
         if (view.isChecked()){
             mSwitchButton1.setChecked(true);
-            mSwitchButton2.setChecked(true);
         }else{
             mSwitchButton1.setChecked(false);
-            mSwitchButton2.setChecked(false);
         }
     }
 

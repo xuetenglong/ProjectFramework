@@ -48,7 +48,7 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
         mRightView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ReleaseNoticeActivity.this,ReleaseTaskActivity.class));
+                startActivity(new Intent(ReleaseNoticeActivity.this,StudentReleaseTaskActivity.class));
             }
         });
 

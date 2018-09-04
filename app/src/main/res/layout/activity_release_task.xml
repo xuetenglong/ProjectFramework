@@ -6,6 +6,8 @@
   android:layout_height="match_parent"
   android:orientation="vertical"
   android:fitsSystemWindows="true"
+  android:focusable="true"
+  android:focusableInTouchMode="true"
   android:background="@color/cF8F8F8"
   tools:context="duanjie.projectframework.home.MainActivity">
 

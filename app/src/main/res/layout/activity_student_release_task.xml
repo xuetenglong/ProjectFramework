@@ -5,16 +5,14 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:fitsSystemWindows="true"
-  android:background="@color/cF8F8F8"
+  android:focusable="true"
+  android:focusableInTouchMode="true"
+  android:background="@color/white"
   tools:context="duanjie.projectframework.home.MainActivity">
 
-
   <LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-  <LinearLayout
+    android:id="@+id/title_default"
+    android:layout_alignParentTop="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -23,149 +21,181 @@
     <include layout="@layout/title_default" />
   </LinearLayout>
 
-  <FrameLayout style="@style/lines_cF8F8F8" />
 
-  <EditText
-    android:id="@+id/ed_notice_title"
-    android:paddingLeft="@dimen/text_height_16"
-    android:background="@color/white"
-    android:layout_width="match_parent"
-    android:hint="@string/notice_title_task"
-    android:textSize="18sp"
-    android:maxLength="50"
-    android:textColor="@color/c111A38"
-    android:textColorHint="@color/c999FA7"
-    android:layout_height="@dimen/text_height" />
-
-  <FrameLayout style="@style/lines_cF8F8F8_16" />
-
-  <EditText
-    android:id="@+id/ed_notice_content"
-    android:padding="@dimen/text_height_16"
-    android:gravity="top|left"
-    android:background="@color/white"
-    android:layout_width="match_parent"
-    android:textSize="15sp"
-    android:maxLength="200"
-    android:textColor="@color/c111A38"
-    android:textColorHint="@color/c999FA7"
-    android:hint="@string/notice_task"
-    android:layout_height="@dimen/text_height_120" />
-
-  <LinearLayout
-    android:background="@color/white"
-    android:layout_gravity="right"
-    android:gravity="right"
-    android:paddingRight="@dimen/text_height_16"
+  <ScrollView
+    android:layout_below="@+id/title_default"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
-    <TextView
-      android:id="@+id/leftNum"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="0"/>
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="/200"/>
-
-  </LinearLayout>
+      <FrameLayout style="@style/lines_cF8F8F8" />
 
 
-  <LinearLayout
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-      android:visibility="gone"
-      android:id="@+id/pathView"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="路径"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      android:layout_marginTop="10dp"/>
-    <duanjie.projectframework.home.VoiceView
-      android:id="@+id/voiceView"
-      android:layout_width="100dp"
-      android:layout_height="wrap_content"
-      android:background="@drawable/background_voice_corner"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/pathView"
-      android:textColor="#3677DA"
-      android:textSize="12dp"
-      android:paddingRight="20dp"
-      android:paddingBottom="10dp"
-      android:paddingTop="10dp"
-      android:gravity="right"/>
-  </LinearLayout>
-
-  <FrameLayout style="@style/lines_cF8F8F8" />
+      <EditText
+        android:id="@+id/ed_notice_content"
+        android:padding="@dimen/text_height_16"
+        android:gravity="top|left"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:textSize="15sp"
+        android:textColor="@color/c111A38"
+        android:textColorHint="@color/c999FA7"
+        android:hint="@string/text_do_task"
+        android:layout_height="@dimen/text_height_197" />
 
 
 
 
+      <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+          android:visibility="gone"
+          android:id="@+id/pathView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="路径"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          android:layout_marginTop="10dp"/>
+        <duanjie.projectframework.home.VoiceView
+          android:id="@+id/voiceView"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:background="@drawable/background_voice_corner"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/pathView"
+          android:textColor="#3677DA"
+          android:textSize="12dp"
+          android:paddingRight="20dp"
+          android:paddingBottom="10dp"
+          android:paddingTop="10dp"
+          android:layout_marginLeft="@dimen/text_height_16"
+          android:gravity="right"/>
+      </LinearLayout>
 
 
-  </LinearLayout>
+
+      <TextView
+        android:background="@color/app_blue"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:text="路径"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+        android:background="@color/cE1E0E5"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:text="路径"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    </LinearLayout>
+  </ScrollView>
+
 
 
   <LinearLayout
     android:layout_alignParentBottom="true"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/text_height_54"
-    android:background="@color/white"
-    android:orientation="horizontal">
-    <LinearLayout
-      android:layout_weight="0.5"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:gravity="center"
-      android:orientation="horizontal">
-
-      <TextView
-        android:textSize="15sp"
-        android:textColor="@color/c999FA7"
-        android:drawablePadding="10dp"
-        android:text="@string/text_picture"
-        android:drawableLeft="@mipmap/icon_picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <FrameLayout
-      android:layout_marginTop="14dp"
-      android:layout_marginBottom="14dp"
-      android:paddingTop="@dimen/text_height_16"
-      android:paddingBottom="@dimen/text_height_16"
-      android:background="@color/cF8F8F8"
-      android:layout_width="1dp"
-      android:layout_height="match_parent"/>
-
+    android:layout_height="wrap_content">
+    <FrameLayout style="@style/lines_cF8F8F8" />
 
     <LinearLayout
-      android:id="@+id/ly_record"
-      android:gravity="center"
-      android:layout_weight="0.5"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="@dimen/text_height_54"
+      android:background="@color/white"
       android:orientation="horizontal">
+      <LinearLayout
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-      <TextView
-        android:drawablePadding="10dp"
-        android:text="@string/text_record"
-        android:textSize="15sp"
-        android:textColor="@color/c999FA7"
-        android:drawableLeft="@mipmap/icon_record"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+          android:textSize="15sp"
+          android:textColor="@color/c999FA7"
+          android:drawablePadding="10dp"
+          android:text="@string/text_picture"
+          android:drawableLeft="@mipmap/icon_picture"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+      </LinearLayout>
+
+      <FrameLayout
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
+        android:paddingTop="@dimen/text_height_16"
+        android:paddingBottom="@dimen/text_height_16"
+        android:background="@color/cF8F8F8"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"/>
+
+
+      <LinearLayout
+        android:id="@+id/ly_record"
+        android:gravity="center"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+          android:drawablePadding="10dp"
+          android:text="@string/text_record"
+          android:textSize="15sp"
+          android:textColor="@color/c999FA7"
+          android:drawableLeft="@mipmap/icon_record"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+      </LinearLayout>
+
+
+
+      <FrameLayout
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
+        android:paddingTop="@dimen/text_height_16"
+        android:paddingBottom="@dimen/text_height_16"
+        android:background="@color/cF8F8F8"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"/>
+
+
+      <LinearLayout
+        android:id="@+id/ly_video"
+        android:gravity="center"
+        android:layout_weight="0.5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+          android:drawablePadding="10dp"
+          android:text="@string/text_video"
+          android:textSize="15sp"
+          android:textColor="@color/c999FA7"
+          android:drawableLeft="@mipmap/ic_video"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+      </LinearLayout>
+
     </LinearLayout>
-
   </LinearLayout>
 
 </RelativeLayout>

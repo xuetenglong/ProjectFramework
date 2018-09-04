@@ -30,12 +30,17 @@
       android:windowSoftInputMode="adjustPan"/>
 
 
-    <!--发布通知-->
+    <!--发布任务-->
     <activity android:name=".home.ReleaseTaskActivity"
       android:theme="@style/AppBaseTheme"
       android:windowSoftInputMode="adjustPan"/>
 
 
+
+    <!--学生端做任务-->
+    <activity android:name=".home.StudentReleaseTaskActivity"
+      android:theme="@style/AppBaseTheme"
+      android:screenOrientation="portrait"/>
 
     <!--    <meta-data
           android:name="com.taobao.android.hotfix.IDSECRET"

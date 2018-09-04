@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (PackageManager.NameNotFoundException e) {
                     e.printStackTrace();
                 }
-                // Toast.makeText(MainActivity.this,appVersion,Toast.LENGTH_LONG).show();
                 startActivity(new Intent(MainActivity.this,ReleaseNoticeActivity.class));
             }
         });
