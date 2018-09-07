@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.PictureVideoPlayActivity;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.EventEntity;
@@ -60,6 +61,7 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
     private ImageView videoView;
     private RelativeLayout playLayout;
     private GridImageAdapter adapter;
+    List<LocalMedia> localMedia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,7 +233,13 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
                         .forResult(PictureConfig.CHOOSE_VIDEO_REQUEST);//结果回调onActivityResult code
                 break;
             case R.id.playLayout:
-
+                if(localMedia!=null&&localMedia.size()>0){
+                    Intent intent = new Intent(this,PictureVideoPlayActivity.class);
+                    Bundle bundle= new Bundle();
+                    bundle.putString("video_path", localMedia.get(0).getPath());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
                 break;
         }
     }
@@ -298,7 +306,7 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
                     break;
                 case PictureConfig.CHOOSE_VIDEO_REQUEST:
                     playLayout.setVisibility(View.VISIBLE);
-                    List<LocalMedia> localMedia = PictureSelector.obtainMultipleResult(data);
+                    localMedia = PictureSelector.obtainMultipleResult(data);
                     RequestOptions options = new RequestOptions()
                             .centerCrop()
                             .placeholder(R.color.color_f6)
