@@ -64,7 +64,7 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
         setContentView(R.layout.activity_release_notice);
         EventBus.getDefault().register(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        FullyGridLayoutManager manager = new FullyGridLayoutManager(ReleaseNoticeActivity.this, 4, GridLayoutManager.VERTICAL, false);
+        FullyGridLayoutManager manager = new FullyGridLayoutManager(ReleaseNoticeActivity.this, 3, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         adapter = new GridImageAdapter(ReleaseNoticeActivity.this, onAddPicClickListener);
         adapter.setList(selectList);

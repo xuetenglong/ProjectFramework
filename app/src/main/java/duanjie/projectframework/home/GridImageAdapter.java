@@ -133,9 +133,9 @@ public class GridImageAdapter extends
                     mOnAddPicClickListener.onAddPicClick();
                 }
             });
-            viewHolder.ll_del.setVisibility(View.INVISIBLE);
+           // viewHolder.ll_del.setVisibility(View.INVISIBLE);
         } else {
-            viewHolder.ll_del.setVisibility(View.VISIBLE);
+           // viewHolder.ll_del.setVisibility(View.VISIBLE);
             viewHolder.ll_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
