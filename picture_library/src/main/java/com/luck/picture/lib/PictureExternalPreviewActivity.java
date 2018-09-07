@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -31,10 +32,12 @@ import com.bumptech.glide.request.transition.Transition;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.dialog.CustomDialog;
+import com.luck.picture.lib.entity.EventEntity;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.permissions.RxPermissions;
 import com.luck.picture.lib.photoview.OnViewTapListener;
 import com.luck.picture.lib.photoview.PhotoView;
+import com.luck.picture.lib.rxbus2.RxBus;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.luck.picture.lib.tools.ScreenUtils;
 import com.luck.picture.lib.tools.ToastManage;
@@ -64,6 +67,7 @@ import io.reactivex.disposables.Disposable;
 public class PictureExternalPreviewActivity extends PictureBaseActivity implements View.OnClickListener {
     private ImageButton left_back;
     private TextView tv_title;
+    private TextView right_title;
     private PreviewViewPager viewPager;
     private List<LocalMedia> images = new ArrayList<>();
     private int position = 0;
@@ -80,12 +84,15 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
         inflater = LayoutInflater.from(this);
         tv_title = (TextView) findViewById(R.id.picture_title);
         left_back = (ImageButton) findViewById(R.id.left_back);
+        right_title = (TextView) findViewById(R.id.right_title);
         viewPager = (PreviewViewPager) findViewById(R.id.preview_pager);
         position = getIntent().getIntExtra(PictureConfig.EXTRA_POSITION, 0);
         directory_path = getIntent().getStringExtra(PictureConfig.DIRECTORY_PATH);
         images = (List<LocalMedia>) getIntent().getSerializableExtra(PictureConfig.EXTRA_PREVIEW_SELECT_LIST);
         left_back.setOnClickListener(this);
         initViewPageAdapterData();
+        right_title.setText("删除");
+        right_title.setOnClickListener(this);
     }
 
     private void initViewPageAdapterData() {
@@ -101,6 +108,7 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
 
             @Override
             public void onPageSelected(int position) {
+                PictureExternalPreviewActivity.this.position = position;
                 tv_title.setText(position + 1 + "/" + images.size());
             }
 
@@ -112,12 +120,26 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
 
     @Override
     public void onClick(View v) {
-        finish();
+        if(v.getId()==R.id.right_title){
+            if(images.size()>0){
+                if(images.size()==1&&position==0){
+                    images.remove(position);
+                    finish();
+                }else{
+                    images.remove(position);
+                    tv_title.setText(position + 1 + "/" + images.size());
+                    adapter.notifyDataSetChanged();
+                }
+                RxBus.getDefault().post(new EventEntity(PictureConfig.EXTRA_SELECT_LIST_INT,images));
+            }
+        }else{
+            finish();
+        }
 //        overridePendingTransition(0, R.anim.a3);
     }
 
     public class SimpleFragmentAdapter extends PagerAdapter {
-
+        private int mChildCount = 0;
         @Override
         public int getCount() {
             return images.size();
@@ -126,6 +148,11 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             (container).removeView((View) object);
+        }
+
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            return POSITION_NONE;
         }
 
         @Override
@@ -140,7 +167,6 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
             final PhotoView imageView = (PhotoView) contentView.findViewById(R.id.preview_image);
             // 长图控件
             final SubsamplingScaleImageView longImg = (SubsamplingScaleImageView) contentView.findViewById(R.id.longImg);
-
             LocalMedia media = images.get(position);
             if (media != null) {
                 final String pictureType = media.getPictureType();

@@ -47,4 +47,5 @@ public final class PictureConfig {
     public final static int CHOOSE_VIDEO_REQUEST = 912;
     public final static int READ_EXTERNAL_STORAGE = 0x01;
     public final static int CAMERA = 0x02;
+    public final static int EXTRA_SELECT_LIST_INT = 0x03;
 }

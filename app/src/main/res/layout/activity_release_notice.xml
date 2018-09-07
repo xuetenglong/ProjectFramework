@@ -25,7 +25,8 @@
       android:layout_height="match_parent"
       android:fadingEdge="none"
       android:scrollbars="none"
-      android:overScrollMode="never">
+      android:overScrollMode="never"
+        android:background="@color/white">
         <LinearLayout
           android:orientation="vertical"
           android:layout_width="match_parent"

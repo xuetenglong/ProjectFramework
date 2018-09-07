@@ -29,7 +29,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.EventEntity;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.luck.picture.lib.rxbus2.RxBus;
 import com.suke.widget.SwitchButton;
 
 import org.greenrobot.eventbus.EventBus;
@@ -46,8 +48,8 @@ import duanjie.projectframework.R;
  * Created by Administrator on 2018/9/3.
  */
 
-public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchButton.OnCheckedChangeListener, View.OnClickListener{
-    SwitchButton mSwitchButton1,mSwitchButton2;
+public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchButton.OnCheckedChangeListener, View.OnClickListener {
+    SwitchButton mSwitchButton1, mSwitchButton2;
     private VoiceView voiceView;
     private TextView pathView;
     private boolean isPlay;
@@ -58,11 +60,13 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
     private ImageView videoView;
     private RelativeLayout playLayout;
     private GridImageAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release_notice);
         EventBus.getDefault().register(this);
+        RxBus.getDefault().register(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         FullyGridLayoutManager manager = new FullyGridLayoutManager(ReleaseNoticeActivity.this, 3, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
@@ -80,8 +84,8 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
                     switch (mediaType) {
                         case 1:
                             // 预览图片 可自定长按保存路径
-                            //PictureSelector.create(ReleaseNoticeActivity.this).themeStyle(themeId).externalPicturePreview(position, "/custom_file", selectList);
-//                            PictureSelector.create(ReleaseNoticeActivity.this).themeStyle(themeId).openExternalPreview(position, selectList);
+//                            PictureSelector.create(ReleaseNoticeActivity.this).themeStyle(R.style.picture_QQ_style).externalPicturePreview(position, "/custom_file", selectList);
+                            PictureSelector.create(ReleaseNoticeActivity.this).themeStyle(R.style.picture_QQ_style).openExternalPreview(position, selectList);
                             break;
                         case 2:
                             // 预览视频
@@ -105,20 +109,20 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
         mRightView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ReleaseNoticeActivity.this,StudentReleaseTaskActivity.class));
+                startActivity(new Intent(ReleaseNoticeActivity.this, StudentReleaseTaskActivity.class));
             }
         });
 
 
-        mSwitchButton1=(SwitchButton)findViewById(R.id.switchButton1);
-        mSwitchButton2=(SwitchButton)findViewById(R.id.switchButton1);
+        mSwitchButton1 = (SwitchButton) findViewById(R.id.switchButton1);
+        mSwitchButton2 = (SwitchButton) findViewById(R.id.switchButton1);
 
         /**
          * 通知标题
          */
         TextView mNoticeTitle = (TextView) findViewById(R.id.ed_notice_title);
         SpannableString sNoticeTitle = new SpannableString("通知标题(必填)...");//定义hint的值
-        AbsoluteSizeSpan aNoticeTitle = new AbsoluteSizeSpan(15,true);//设置字体大小 true表示单位是sp
+        AbsoluteSizeSpan aNoticeTitle = new AbsoluteSizeSpan(15, true);//设置字体大小 true表示单位是sp
         sNoticeTitle.setSpan(aNoticeTitle, 0, sNoticeTitle.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         mNoticeTitle.setHint(new SpannedString(sNoticeTitle));
 
@@ -126,7 +130,6 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
         mLeftView.setText("取消");
         mMiddleView.setText("发布通知");
         mRightView.setText("发布");
-
 
 
         findViewById(R.id.ly_record).setOnClickListener(this);
@@ -144,16 +147,18 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
-                if(maxNum-s.length()==0 || maxNum-s.length()<0){
-                    Toast.makeText(ReleaseNoticeActivity.this,"不能超过200个文字",Toast.LENGTH_LONG).show();
+                if (maxNum - s.length() == 0 || maxNum - s.length() < 0) {
+                    Toast.makeText(ReleaseNoticeActivity.this, "不能超过200个文字", Toast.LENGTH_LONG).show();
                     return;
-                }else{
-                    leftNum.setText((maxNum-s.length())+"");
+                } else {
+                    leftNum.setText((maxNum - s.length()) + "");
                 }
 
             }
@@ -164,10 +169,10 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
 
     @Override
     public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-        if (view.isChecked()){
+        if (view.isChecked()) {
             mSwitchButton1.setChecked(true);
             mSwitchButton2.setChecked(true);
-        }else{
+        } else {
             mSwitchButton1.setChecked(false);
             mSwitchButton2.setChecked(false);
         }
@@ -240,7 +245,7 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
         url = filePath;
         this.time = elpased;
         pathView.setText(TextUtils.isEmpty(url) ? "" : url);
-        voiceView.setText((this.time/1000)+"");
+        voiceView.setText((this.time / 1000) + "");
         voiceView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -248,9 +253,25 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
             }
         });
     }
+
     private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {
         @Override
         public void onAddPicClick() {
+// 进入相册 以下是例子：不需要的api可以不写
+            PictureSelector.create(ReleaseNoticeActivity.this)
+                    .openGallery(PictureMimeType.ofImage())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+                    .theme(R.style.picture_QQ_style)// 主题样式设置 具体参考 values/styles   用法：R.style.picture.white.style
+                    .maxSelectNum(9)// 最大图片选择数量
+                    .minSelectNum(1)// 最小选择数量
+                    .imageSpanCount(4)// 每行显示个数
+                    .selectionMode(PictureConfig.MULTIPLE)// 多选 or 单选
+                    .previewImage(true)// 是否可预览图片
+                    .isCamera(false)// 是否显示拍照按钮
+                    .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
+                    .synOrAsy(true)//同步true或异步false 压缩 默认同步
+                    .minimumCompressSize(100)// 小于100kb的图片不压缩
+                    .selectionMedia(selectList)
+                    .forResult(PictureConfig.CHOOSE_PICTURE_REQUEST);//结果回调onActivityResult code
 
         }
 
@@ -290,10 +311,29 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
             }
         }
     }
+    /**
+     * EventBus 3.0 回调
+     *
+     * @param obj
+     */
+    @com.luck.picture.lib.rxbus2.Subscribe(threadMode = com.luck.picture.lib.rxbus2.ThreadMode.MAIN)
+    public void eventBus(EventEntity obj) {
+        switch (obj.what) {
+            case PictureConfig.EXTRA_SELECT_LIST_INT:
+                selectList = obj.medias;
+                for (LocalMedia media : selectList) {
+                    Log.i("图片-----》", media.getPath());
+                }
+                adapter.setList(selectList);
+                adapter.notifyDataSetChanged();
+                break;
+        }
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        RxBus.getDefault().unregister(this);
     }
 }
