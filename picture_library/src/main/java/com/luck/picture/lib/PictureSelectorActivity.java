@@ -137,6 +137,9 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                     }
                 }
                 break;
+            case PictureConfig.CHOOSE_VIDEO_REQUEST:
+                finish();
+                break;
         }
     }
 
@@ -807,13 +810,15 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 break;
             case PictureConfig.TYPE_VIDEO:
                 // video
-                if (config.selectionMode == PictureConfig.SINGLE) {
-                    result.add(media);
-                    onResult(result);
-                } else {
-                    bundle.putString("video_path", media.getPath());
-                    startActivity(PictureVideoPlayActivity.class, bundle);
-                }
+//                if (config.selectionMode == PictureConfig.SINGLE) {
+//                    result.add(media);
+//                    onResult(result);
+//                } else {
+                bundle.putString("video_path", media.getPath());
+                bundle.putParcelable("video", media);
+                bundle.putBoolean("is_preview", true);
+                startActivity(PictureVideoPlayActivity.class, bundle);
+//                }
                 break;
             case PictureConfig.TYPE_AUDIO:
                 // audio
@@ -826,7 +831,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 break;
         }
     }
-
 
     /**
      * change image selector state

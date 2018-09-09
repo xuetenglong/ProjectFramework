@@ -86,16 +86,11 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
                     switch (mediaType) {
                         case 1:
                             // 预览图片 可自定长按保存路径
-//                            PictureSelector.create(ReleaseNoticeActivity.this).themeStyle(R.style.picture_QQ_style).externalPicturePreview(position, "/custom_file", selectList);
                             PictureSelector.create(ReleaseNoticeActivity.this).themeStyle(R.style.picture_QQ_style).openExternalPreview(position, selectList);
                             break;
                         case 2:
                             // 预览视频
                             PictureSelector.create(ReleaseNoticeActivity.this).externalPictureVideo(media.getPath());
-                            break;
-                        case 3:
-                            // 预览音频
-                            PictureSelector.create(ReleaseNoticeActivity.this).externalPictureAudio(media.getPath());
                             break;
                     }
                 }
@@ -202,7 +197,7 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
                 break;
             case R.id.pictureLayout:
                 // 进入相册 以下是例子：不需要的api可以不写
-                PictureSelector.create(this)
+                PictureSelector.create(ReleaseNoticeActivity.this)
                         .openGallery(PictureMimeType.ofImage())// 全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
                         .theme(R.style.picture_QQ_style)// 主题样式设置 具体参考 values/styles   用法：R.style.picture.white.style
                         .maxSelectNum(9)// 最大图片选择数量
@@ -214,6 +209,7 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
                         .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
                         .synOrAsy(true)//同步true或异步false 压缩 默认同步
                         .minimumCompressSize(100)// 小于100kb的图片不压缩
+                        .selectionMedia(selectList)
                         .forResult(PictureConfig.CHOOSE_PICTURE_REQUEST);//结果回调onActivityResult code
                 break;
             case R.id.allClassView:
@@ -225,7 +221,7 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
                         .minSelectNum(1)// 最小选择数量
                         .imageSpanCount(4)// 每行显示个数
                         .selectionMode(PictureConfig.SINGLE)// 多选 or 单选
-                        .previewImage(true)// 是否可预览图片
+                        .previewVideo(true)// 是否可预览图片
                         .isCamera(false)// 是否显示拍照按钮
                         .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
                         .synOrAsy(true)//同步true或异步false 压缩 默认同步
@@ -335,6 +331,25 @@ public class ReleaseNoticeActivity extends AppCompatActivity implements SwitchBu
                 adapter.setList(selectList);
                 adapter.notifyDataSetChanged();
                 break;
+            case PictureConfig.EXTRA_DELETE_VIDEO:
+                playLayout.setVisibility(View.GONE);
+                break;
+            case PictureConfig.CHOOSE_VIDEO_REQUEST:
+                playLayout.setVisibility(View.VISIBLE);
+                selectList = obj.medias;
+                for (LocalMedia media : selectList) {
+                    Log.i("图片-----》", media.getPath());
+                }
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .placeholder(R.color.color_f6)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL);
+                Glide.with(this)
+                        .load(localMedia.get(0).getPath())
+                        .apply(options)
+                        .into(videoView);
+                break;
+
         }
     }
 
